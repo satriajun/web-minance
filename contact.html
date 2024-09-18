@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mangcoding Template</title>
+</head>
+
+<body>
+    <header class="w-full bg-hero py-4 md:py-6 fixed">
+        <nav class="container flex flex-col md:flex-row justify-between items-center md:flex-wrap z-50">
+            <div class="flex justify-between w-full md:w-auto items-center">
+                <a href="index.html"><img class="w-auto h-12 md:h-auto" src="../src/assets/Logo.png" alt="Logo"></a>
+                <button class="md:hidden text-white" id="menu-btn">
+                    <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Desktop Menu -->
+            <ul
+                class="hidden md:flex flex-col md:flex-row lg:items-center gap-4 md:gap-6 w-full md:w-auto text-center mt-4 md:mt-0">
+                <li><a class="text-white text-lg" href="about.html">About</a></li>
+                <li><a class="text-white text-lg" href="download.html">Download</a></li>
+                <li><a class="text-white text-lg" href="contact.html">Contact</a></li>
+                <div class="border-[1.5px] border-white h-[32px] w-0"></div>
+                <div class="flex justify-center items-center gap-4 md:gap-6">
+                    <div x-data="{ open: false, selectLanguage: 'EN' }"
+                        class="relative border border-white px-4 py-2 rounded-full flex items-center gap-2">
+                        <button @click="open = !open" class="flex items-center">
+                            <span class="text-white text-sm font-semibold" x-text="selectLanguage"></span>
+                            <img src="./src/assets/arrow.svg" class="ml-2 transform duration-500"
+                                :class="{'rotate-180': open, 'rotate-0': !open}" alt="arrow">
+                        </button>
+                        <img class="ml-2 w-5 h-5 rounded-full"
+                            :src="selectLanguage === 'EN' ? './src/assets/eng-flags.svg' : './src/assets/idn-flags.svg'"
+                            alt="flag">
+                        <div x-show="open" @click.away="open = false"
+                            class="absolute mt-2 top-8 left-0 bg-white text-black rounded-lg shadow-lg overflow-hidden z-20">
+                            <ul class="py-2 text-center">
+                                <li @click="selectLanguage = 'EN'; open = false"
+                                    class="px-4 py-2 cursor-pointer hover:bg-gray-200">EN</li>
+                                <li @click="selectLanguage = 'IND'; open = false"
+                                    class="px-4 py-2 cursor-pointer hover:bg-gray-200">IND</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="btn btn__primary px-4 py-2 text-white bg-blue-600 rounded-full">Sign Up</button>
+                </div>
+            </ul>
+        </nav>
+
+        <!-- Mobile Menu (Full-Screen Sidebar) -->
+        <div id="menu" class="fixed inset-0 bg-white px-[24px] md:hidden flex flex-col z-50 ">
+            <div class="flex justify-between w-full mt-[12px]">
+                <img src="src/assets/Logohitam.png" alt="Logo" class="w-24 h-auto">
+                <svg id="close-btn" class="w-8 h-8 cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </div>
+
+            <ul class="flex flex-col text-left gap-8 w-full mt-16">
+                <li><a class="text-black text-lg" href="about.html">About</a></li>
+                <li><a class="text-black text-lg" href="download.html">Download</a></li>
+                <li><a class="text-black text-lg" href="contact.html">Contact</a></li>
+                <div class="justify-between items-center gap-4">
+                    <div x-data="{ open: false, selectLanguage: 'EN' }"
+                        class="relative border border-black px-4 py-2 rounded-full flex items-center gap-2">
+                        <button @click="open = !open" class="flex items-center">
+                            <span class="text-black text-sm font-semibold" x-text="selectLanguage"></span>
+                            <img src="src/assets/arrowhitam.svg" class="ml-2 transform duration-500"
+                                :class="{'rotate-180': open, 'rotate-0': !open}" alt="arrow">
+                        </button>
+                        <img class="ml-auto w-5 h-5 rounded-full"
+                            :src="selectLanguage === 'EN' ? './src/assets/eng-flags.svg' : './src/assets/idn-flags.svg'"
+                            alt="flag">
+                        <div x-show="open" @click.away="open = false"
+                            class="absolute mt-2 top-8 left-0 bg-white text-black rounded-lg shadow-lg overflow-hidden z-20">
+                            <ul class="py-2 text-center">
+                                <li @click="selectLanguage = 'EN'; open = false"
+                                    class="px-4 py-2 cursor-pointer hover:bg-gray-200">EN</li>
+                                <li @click="selectLanguage = 'IND'; open = false"
+                                    class="px-4 py-2 cursor-pointer hover:bg-gray-200">IND</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="btn btn__primary w-full mt-[24px] px-4 py-2 text-white bg-blue-600 rounded-full">Sign
+                        Up</button>
+                </div>
+            </ul>
+        </div>
+
+        <!-- Script JavaScript untuk membuka dan menutup menu -->
+        <script>
+            document.getElementById('menu-btn').addEventListener('click', function () {
+                document.getElementById('menu').classList.toggle('hidden');
+            });
+
+            document.getElementById('close-btn').addEventListener('click', function () {
+                document.getElementById('menu').classList.toggle('hidden');
+            });
+        </script>
+    </header>
+    <main id="app">
+        <section class="w-full bg-hero mx-auto flex flex-col items-center text-white pt-28">
+            <div class="container">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-[132px]">
+                    <!-- Konten di sebelah kiri -->
+                    <div class="md:pt-[40px]">
+                        <div>
+                            <h1 class="text-[32px] md:text-[48px] lg:text-[64px] leading-[40px] md:leading-[60px] lg:leading-[88px] font-semibold font-inter">
+                                Contact Us
+                            </h1>
+                            <p class="text-[16px] leading-[26px] text-white pt-[24px] font-inter">
+                                Fill out the form to learn how Minance can solve your problems in our application.
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-[40px] md:pt-[282px] md:pb-[40px]">
+                            <div>
+                                <p class="text-[16px] leading-[26px] text-white font-bold font-inter">Support</p>
+                                <p class="text-[14px] leading-[24px] text-white pt-[14px] font-inter">
+                                    If you need help or have questions, our support team is ready to assist you. Visit the Support page for more information.
+                                </p>
+                            </div>
+                            <div>
+                                <p class="text-[16px] leading-[26px] text-white font-bold font-inter">Privacy Policy</p>
+                                <p class="pt-[14px] text-[14px] leading-[24px] text-white font-inter">
+                                    We are committed to protecting your privacy. Read our Privacy Policy to find out how we manage and protect your personal information.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- Formulir Kontak di sebelah kanan -->
+                    <div class="pt-10 md:pt-[40px] pb-[40px]">
+                        <div class="bg-white rounded-[16px] py-[24px] px-[20px]">
+                            <div>
+                                <p class="text-[24px] leading-[32px] text-black font-semibold font-inter">Get in Touch</p>
+                                <p class="text-[16px] leading-[26px] pt-[14px] font-inter">Fill out the form below</p>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-[15px] pt-[16px]">
+                                <div class="border rounded-[100px]">
+                                    <div class="flex py-[14px] px-[16px]">
+                                        <img src="src/assets/humancontact.svg" alt="" class="w-6 h-6">
+                                        <input type="text" class="text-black pl-[6px] text-[14px] leading-[24px] font-inter" placeholder="First Name">
+                                    </div>
+                                </div>
+                                <div class="border rounded-[100px]">
+                                    <div class="flex py-[14px] px-[16px]">
+                                        <img src="src/assets/humancontact.svg" alt="" class="w-6 h-6">
+                                        <input type="text" class="text-black pl-[6px] text-[14px] leading-[24px] font-inter" placeholder="Last Name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pt-[16px]">
+                                <div class="border rounded-[100px]">
+                                    <div class="flex py-[14px] px-[16px]">
+                                        <img src="src/assets/iconsurat.svg" alt="" class="w-6 h-6">
+                                        <input type="text" class="text-black pl-[6px] text-[14px] leading-[24px] font-inter" placeholder="Email Address">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pt-[16px]">
+                                <div class="flex">
+                                    <div class="bg-gray-100 py-[14px] px-[16px] flex rounded-tl-[100px] rounded-bl-[100px]">
+                                        <img src="src/assets/iconind.svg" alt="" class="w-6 h-6">
+                                        <img src="src/assets/arahbawah.svg" alt="" class="w-6 h-6">
+                                        <p class="text-[14px] leading-[24px] pr-[10px]">+62</p>
+                                    </div>
+                                    <div class="w-full border py-[14px] px-[16px] rounded-tr-[100px] rounded-br-[100px]">
+                                        <input type="number" class="text-black w-full" placeholder="000 000 000">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pt-[16px]">
+                                <div class="border w-full h-[160px] rounded-[16px]">
+                                    <div class="flex py-[14px] px-[16px]">
+                                        <textarea class="text-black text-[14px] leading-[24px] w-full h-[130px] outline-none focus:ring-transparent" placeholder="How can we help?"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pt-[16px]">
+                                <div class="flex py-[14px] px-[16px]">
+                                    <button class="btn btn__primary px-4 py-2 w-full text-center text-white rounded-full">Sign Up</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="container">
+            <div class="grid md:grid-cols-2 grid-cols-1 py-[60px]">
+                <div class="w-[328px] h-[184px]">
+                    <p class="text-[24px] leading-[32px] text-black font-semibold font-inter">Contact Us</p>
+                    <div class="pt-[24px] flex ">
+                        <img class="pr-[6px]" src="src/assets/Icontelepon.svg" alt="">
+                        <p class="text-[14px] leading-[24px] font-inter text-gray-500">+22 80 1234 4321</p>
+                    </div>
+                    <div class="pt-[16px] flex">
+                        <img class="pr-[6px]" src="src/assets/Iconsuratbiru.svg" alt="">
+                        <p class="text-[14px] leading-[24px] font-inter text-gray-500">finance@minance.com</p>
+                    </div>
+                    <div class="pt-[16px] flex">
+                        <img class="pr-[6px] pb-[24px]" src="src/assets/Iconlokasi.svg" alt="">
+                        <p class="text-[14px] leading-[24px] font-inter text-gray-500">4517 Washington Ave. Manchester,
+                            Kentucky 39495</p>
+                    </div>
+                </div>
+                <div class="z-0">
+                    <div class="relative" x-data="{ clickedIndex: null }">
+                        <!-- Item 1 -->
+                        <div class="relative flex items-start">
+                            <!-- Panah yang berubah saat di-hover -->
+                            <img 
+                                @click="clickedIndex = clickedIndex === 0 ? null : 0" 
+                                :src="clickedIndex === 0 ? 'src/assets/Iconarrowbawah.svg' : 'src/assets/Iconarrowatas.svg'" 
+                                alt="Arrow Icon" 
+                                class="mr-4 h-6 w-6 cursor-pointer"
+                            >
+                    
+                            <!-- Konten -->
+                            <div>
+                                <p class="text-[24px] leading-[32px] font-semibold font-inter z-0">What makes Minance different from other applications?</p>
+                                <!-- Teks yang akan muncul setelah diklik -->
+                                <p 
+                                    class="text-[16px] leading-[26px] font-inter text-gray-500" 
+                                    x-show="clickedIndex === 0"
+                                >
+                                    Minance offers personalized financial planning according to your financial profile and goals. We understand that each individual has unique needs and goals.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="border border-gray-500 my-4"></div>
+                    
+                        <!-- Item 2 -->
+                        <div class="relative flex items-start">
+                            <!-- Panah yang berubah saat di-hover -->
+                            <img 
+                                @click="clickedIndex = clickedIndex === 1 ? null : 1" 
+                                :src="clickedIndex === 1 ? 'src/assets/Iconarrowbawah.svg' : 'src/assets/Iconarrowatas.svg'" 
+                                alt="Arrow Icon" 
+                                class="mr-4 h-6 w-6 cursor-pointer"
+                            >
+                    
+                            <!-- Konten -->
+                            <div>
+                                <p class="text-[24px] leading-[32px] font-semibold font-inter">How do I start using Minance App?</p>
+                                <!-- Teks yang akan muncul setelah diklik -->
+                                <p 
+                                    class="text-[16px] leading-[26px] font-inter text-gray-500" 
+                                    x-show="clickedIndex === 1"
+                                >
+                                    Minance offers personalized financial planning according to your financial profile and goals. We understand that each individual has unique needs and goals.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="border border-gray-500 my-4"></div>
+                    
+                        <!-- Item 3 -->
+                        <div class="relative flex items-start">
+                            <!-- Panah yang berubah saat di-hover -->
+                            <img 
+                                @click="clickedIndex = clickedIndex === 2 ? null : 2" 
+                                :src="clickedIndex === 2 ? 'src/assets/Iconarrowbawah.svg' : 'src/assets/Iconarrowatas.svg'" 
+                                alt="Arrow Icon" 
+                                class="mr-4 h-6 w-6 cursor-pointer"
+                            >
+                    
+                            <!-- Konten -->
+                            <div>
+                                <p class="text-[24px] leading-[32px] font-semibold font-inter">Is Minance safe to use?</p>
+                                <!-- Teks yang akan muncul setelah diklik -->
+                                <p 
+                                    class="text-[16px] leading-[26px] font-inter text-gray-500" 
+                                    x-show="clickedIndex === 2"
+                                >
+                                    Minance offers personalized financial planning according to your financial profile and goals. We understand that each individual has unique needs and goals.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="border border-gray-500 my-4"></div>
+                    
+                        <!-- Item 4 -->
+                        <div class="relative flex items-start">
+                            <!-- Panah yang berubah saat di-hover -->
+                            <img 
+                                @click="clickedIndex = clickedIndex === 3 ? null : 3" 
+                                :src="clickedIndex === 3 ? 'src/assets/Iconarrowbawah.svg' : 'src/assets/Iconarrowatas.svg'" 
+                                alt="Arrow Icon" 
+                                class="mr-4 h-6 w-6 cursor-pointer"
+                            >
+                    
+                            <!-- Konten -->
+                            <div>
+                                <p class="text-[24px] leading-[32px] font-semibold font-inter">How does financial planning work on Minance App?</p>
+                                <!-- Teks yang akan muncul setelah diklik -->
+                                <p 
+                                    class="text-[16px] leading-[26px] font-inter text-gray-500" 
+                                    x-show="clickedIndex === 3"
+                                >
+                                    Minance offers personalized financial planning according to your financial profile and goals. We understand that each individual has unique needs and goals.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="border border-gray-500 my-4"></div>
+                    
+                        <!-- Item 5 -->
+                        <div class="relative flex items-start">
+                            <!-- Panah yang berubah saat di-hover -->
+                            <img 
+                                @click="clickedIndex = clickedIndex === 4 ? null : 4" 
+                                :src="clickedIndex === 4 ? 'src/assets/Iconarrowbawah.svg' : 'src/assets/Iconarrowatas.svg'" 
+                                alt="Arrow Icon" 
+                                class="mr-4 h-6 w-6 cursor-pointer"
+                            >
+                    
+                            <!-- Konten -->
+                            <div>
+                                <p class="text-[24px] leading-[32px] font-semibold font-inter">Is Minance App compatible with my device?</p>
+                                <!-- Teks yang akan muncul setelah diklik -->
+                                <p 
+                                    class="text-[16px] leading-[26px] font-inter text-gray-500" 
+                                    x-show="clickedIndex === 4"
+                                >
+                                    Minance offers personalized financial planning according to your financial profile and goals. We understand that each individual has unique needs and goals.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container py-[40px]">
+          <div class=" w-full bg-heroblack bg-center bg-cover rounded-[24px] ">
+            <div class=" grid md:grid-cols-2 grid-cols-">
+              <div class="md:pl-[60px] md:pt-[40px] px-[24px] pt-[24px]">
+                <p
+                  class="md:text-[48px] md:leading-[64px] font-semibold text-[24px] leading-[32px] text-transparent bg-clip-text bg-gradient-to-r from-[#9ABFFE] to-[#A9F9B1]">
+                  Get the Minance mobile
+                  app</p>
+                <p class="md:text-[14px] md:leading-[24px] text-white pt-[24px]">The First Application that is widely use
+                  and
+                  trusted by many companies</p>
+                <p class="text-[14px] leading-[24px] text-white pt-[24px] pb-[24px]">Download App</p>
+              </div>
+              <div>
+                <img src="src/assets/content.png" alt="">
+              </div>
+            </div>
+          </div>
+        </section>
+        <footer class="w-full bg-herofooter container pt-[60px]">
+          <div class=" bg-herofooter bg-center bg-cover">
+            <div class="grid md:grid-cols-2 grid-cols-1 ">
+              <div class=" lg:w-[426px]">
+                <img src="src/assets/Logo.png" alt="">
+                <p class="text-[14px] leading-[24px] text-white pt-[40px]">At Minance, we help you achieve your financial
+                  goals with confidence. With 2 years of experience, we offer personalized financial planning and innovative
+                  banking services. Join us for a journey to financial stability and growth.</p>
+                <div>
+                  <ul class="pt-[40px] flex gap-[16px]">
+                    <li><a href=""></a> <img src="src/assets/instagram.svg" alt=""></li>
+                    <li><a href=""></a> <img src="src/assets/wa.svg" alt=""></li>
+                    <li><a href=""></a> <img src="src/assets/youtube.svg" alt=""></li>
+                    <li><a href=""></a> <img src="src/assets/linkedin.svg" alt=""></li>
+                    <li><a href=""></a> <img src="src/assets/twiter.svg" alt=""></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="grid md:grid-cols-2 grid-cols-1">
+                <div class="gap-">
+                  <p class="text-[14px] leading-[24px] text-white font-bold md:pt-0 pt-[24px]">Company</p>
+                  <ul>
+                    <li class="md:pt-[24px] pt-[16px]"><a href="">About Us</a></li>
+                    <li class="md:pt-[24px] pt-[16px]"><a href="">Blog</a></li>
+                    <li class="md:pt-[24px] pt-[16px]"><a href="">Contact</a></li>
+                  </ul>
+                </div>
+                <div class="">
+                  <p class="text-white font-bold md:pt-0 pt-[16px]">Contact us</p>
+                  <p class="text-white md:pt-[24px] pt-[24px]">+22 80 1234 4321</p>
+                  <div>
+                    <p class="text-white font-bold md:pt-[24px] pt-[16px]">Support</p>
+                    <p class="text-white md:pt-[24px] pt-[24px]">+22 80 1234 2233</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <img class="pt-[60px]" src="src/assets/Logofooter.png" alt="">
+            </div>
+          </div>
+        </footer>
+    </main>
+    <script type="module" src="/main.js"></script>
+</body>
+
+</html>

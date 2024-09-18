@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mangcoding Template</title>
+</head>
+
+<body>
+    <header class="w-full bg-hero py-4 md:py-6 fixed">
+        <nav class="container flex flex-col md:flex-row justify-between items-center md:flex-wrap">
+          <div class="flex justify-between w-full md:w-auto items-center">
+            <a href="index.html"><img  class="w-auto h-12 md:h-auto" src="../src/assets/Logo.png" alt="Logo"></a>
+            <button class="md:hidden text-white" id="menu-btn">
+              <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+    
+          <!-- Desktop Menu -->
+          <ul class="hidden md:flex flex-col md:flex-row lg:items-center gap-4 md:gap-6 w-full md:w-auto text-center mt-4 md:mt-0">
+            <li><a class="text-white text-lg" href="about.html">About</a></li>
+            <li><a class="text-white text-lg" href="download.html">Download</a></li>
+            <li><a class="text-white text-lg" href="contact.html">Contact</a></li>
+            <div class="border-[1.5px] border-white h-[32px] w-0"></div>
+            <div class="flex justify-center items-center gap-4 md:gap-6">
+              <div x-data="{ open: false, selectLanguage: 'EN' }" class="relative border border-white px-4 py-2 rounded-full flex items-center gap-2">
+                <button @click="open = !open" class="flex items-center">
+                  <span class="text-white text-sm font-semibold" x-text="selectLanguage"></span>
+                  <img src="./src/assets/arrow.svg" class="ml-2 transform duration-500" :class="{'rotate-180': open, 'rotate-0': !open}" alt="arrow">
+                </button>
+                <img class="ml-2 w-5 h-5 rounded-full" :src="selectLanguage === 'EN' ? './src/assets/eng-flags.svg' : './src/assets/idn-flags.svg'" alt="flag">
+                <div x-show="open" @click.away="open = false" class="absolute mt-2 top-8 left-0 bg-white text-black rounded-lg shadow-lg overflow-hidden z-20">
+                  <ul class="py-2 text-center">
+                    <li @click="selectLanguage = 'EN'; open = false" class="px-4 py-2 cursor-pointer hover:bg-gray-200">EN</li>
+                    <li @click="selectLanguage = 'IND'; open = false" class="px-4 py-2 cursor-pointer hover:bg-gray-200">IND</li>
+                  </ul>
+                </div>
+              </div>
+              <button class="btn btn__primary px-4 py-2 text-white bg-blue-600 rounded-full">Sign Up</button>
+            </div>
+          </ul>
+        </nav>
+    
+        <!-- Mobile Menu (Full-Screen Sidebar) -->
+        <div id="menu" class="fixed inset-0 bg-white px-[24px] md:hidden flex flex-col z-50 ">
+          <div class="flex justify-between w-full mt-[12px]">
+            <img src="src/assets/Logohitam.png" alt="Logo" class="w-24 h-auto">
+            <svg id="close-btn" class="w-8 h-8 cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </div>
+    
+          <ul class="flex flex-col text-left gap-8 w-full mt-16">
+            <li><a class="text-black text-lg" href="about.html">About</a></li>
+            <li><a class="text-black text-lg" href="download.html">Download</a></li>
+            <li><a class="text-black text-lg" href="contact.html">Contact</a></li>
+            <div class="justify-between items-center gap-4">
+              <div x-data="{ open: false, selectLanguage: 'EN' }" class="relative border border-black px-4 py-2 rounded-full flex items-center gap-2">
+                <button @click="open = !open" class="flex items-center">
+                  <span class="text-black text-sm font-semibold" x-text="selectLanguage"></span>
+                  <img src="src/assets/arrowhitam.svg" class="ml-2 transform duration-500" :class="{'rotate-180': open, 'rotate-0': !open}" alt="arrow">
+                </button>
+                <img class="ml-auto w-5 h-5 rounded-full" :src="selectLanguage === 'EN' ? './src/assets/eng-flags.svg' : './src/assets/idn-flags.svg'" alt="flag">
+                <div x-show="open" @click.away="open = false" class="absolute mt-2 top-8 left-0 bg-white text-black rounded-lg shadow-lg overflow-hidden z-20">
+                  <ul class="py-2 text-center">
+                    <li @click="selectLanguage = 'EN'; open = false" class="px-4 py-2 cursor-pointer hover:bg-gray-200">EN</li>
+                    <li @click="selectLanguage = 'IND'; open = false" class="px-4 py-2 cursor-pointer hover:bg-gray-200">IND</li>
+                  </ul>
+                </div>
+              </div>
+              <button class="btn btn__primary w-full mt-[24px] px-4 py-2 text-white bg-blue-600 rounded-full">Sign Up</button>
+            </div>
+          </ul>
+        </div>
+    
+        <!-- Script JavaScript untuk membuka dan menutup menu -->
+        <script>
+          document.getElementById('menu-btn').addEventListener('click', function () {
+            document.getElementById('menu').classList.toggle('hidden');
+          });
+    
+          document.getElementById('close-btn').addEventListener('click', function () {
+            document.getElementById('menu').classList.toggle('hidden');
+          });
+        </script>
+      </header>
+    <main id="app">
+        <section class="w-full bg-hero mx-auto flex flex-col items-center text-white pt-28">
+            <div class="container">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="pt-10 md:pt-[40px]">
+                  <h1 class="text-[32px] md:text-[48px] lg:text-[64px] leading-[40px] md:leading-[60px] lg:leading-[88px] font-semibold">
+                    Learn more about Minance and Team
+                  </h1>
+                </div>
+                <div class="pt-8 md:pt-[124px] md:pl-[47px]">
+                  <p class="text-[14px] md:text-[16px] leading-[22px] md:leading-[26px] lg:leading-[28px] text-white">
+                    Our team consists of experienced professionals in technology and finance who are dedicated to providing the best solutions for users.
+                  </p>
+                </div>
+              </div>
+              <div class="flex gap-[5px] overflow-x-auto lg:overflow-x-visible lg:flex-wrap lg:justify-between h-auto pt-[40px]"
+              x-data="{
+                reviewers: [
+                  {
+                    name: 'Deni',
+                    img: 'src/assets/deni.png',
+                    position: '3D Designer',
+                  },
+                  {
+                    name: 'Nugraha',
+                    img: 'src/assets/nugraha.png',
+                    position: 'CEO of Minance App',
+                  },
+                  {
+                    name: 'Purwa Adi Wicaksana',
+                    img: 'src/assets/purwa.png',
+                    position: 'UI/UX Designer',
+                  },
+                  {
+                    name: 'Yayan Kurnia',
+                    img: 'src/assets/yayan.png',
+                    position: 'Marketing specialist',
+                  }
+                ]
+              }">
+           <template x-for="(review, index) in reviewers" :key="index">
+             <div class="flex-shrink-0 w-[250px] sm:w-[300px] md:w-[350px] lg:w-[22%] mb-[35px] flex flex-col items-center">
+               <!-- Figure section -->
+               <figure class="w-full flex flex-col">
+                 <img class="w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] object-cover" :src="review.img" alt="person">
+                 <div class=" mt-[10px]">
+                   <p class="text-[16px] sm:text-[18px] md:text-[20px] lg:text-[24px] leading-[22px] md:leading-[26px] text-white font-semibold" x-text="review.name"></p>
+                   <p class="text-[14px] sm:text-[16px] md:text-[18px] leading-[20px] md:leading-[22px] text-white pt-1" x-text="review.position"></p>
+                 </div>
+               </figure>
+             </div>
+           </template>
+         </div>
+              <!-- <div class="">
+                  <div class=" overflow-x-scroll flex gap-6 pt-10 pb-28">
+                    <figure class="flex flex-col items-center">
+                      <img class="w-[200px]" src="src/assets/deni.png" alt="Deni">
+                      <div class="pt-4">
+                        <p class="text-[18px] md:text-[24px] leading-[28px] md:leading-[32px] text-white font-semibold">Deni</p>
+                        <p class="text-[14px] md:text-[16px] leading-[22px] md:leading-[26px] text-white pt-1">3D Designer</p>
+                      </div>
+                    </figure>
+                    <figure class="flex flex-col items-center">
+                      <img src="src/assets/nugraha.png" alt="Nugraha">
+                      <div class="pt-4">
+                        <p class="text-[18px] md:text-[24px] leading-[28px] md:leading-[32px] text-white font-semibold">Nugraha</p>
+                        <p class="text-[14px] md:text-[16px] leading-[22px] md:leading-[26px] text-white pt-1">CEO of Minance App</p>
+                      </div>
+                    </figure>
+                    <figure class="flex flex-col items-center">
+                      <img src="src/assets/purwa.png" alt="Purwa Adi Wicaksana">
+                      <div class="pt-4">
+                        <p class="text-[18px] md:text-[24px] leading-[28px] md:leading-[32px] text-white font-semibold">Purwa Adi Wicaksana</p>
+                        <p class="text-[14px] md:text-[16px] leading-[22px] md:leading-[26px] text-white pt-1">UI/UX Designer</p>
+                      </div>
+                    </figure>
+                    <figure class="flex flex-col items-center">
+                      <img src="src/assets/yayan.png" alt="Yayan Kurnia">
+                      <div class="pt-4">
+                        <p class="text-[18px] md:text-[24px] leading-[28px] md:leading-[32px] text-white font-semibold">Yayan Kurnia</p>
+                        <p class="text-[14px] md:text-[16px] leading-[22px] md:leading-[26px] text-white pt-1">Marketing Specialist</p>
+                      </div>
+                    </figure>
+                  </div>
+              </div>           -->
+            </div>
+          </section>
+        <section class="container">
+            <div class="text-center pt-[60px]">
+                <h2 class="text-[48px] leading-[60px] font-semibold">Management of out Money</h2>
+                <p class="text-[14px] leading-[24px] pt-[16px]">Meet Team and discussion about Minance Management</p>
+            </div>
+            <div class="pt-[40px]">
+              <video class="w-full h-auto" controls>
+                <source class="w-[1320px] h-[473px]" src="src/assets/vidio/vidio1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div class="grid grid-cols-3 md:grid-cols-3 gap-[40px] text-center pt-[40px]">
+              <div class="">
+                <p class="text-[32px] leading-[42px] md:text-[40px] font-bold text-black">1k+</p>
+                <p class="text-black text-[14px] leading-[22px] md:leading-[24px]">Users</p>
+              </div>
+              <div class="">
+                <p class="text-[32px] leading-[42px] md:text-[40px] font-bold text-black">20k+</p>
+                <p class="text-black text-[14px] leading-[22px] md:leading-[24px]">Satisfied Customers</p>
+              </div>
+              <div class="">
+                <p class="text-[32px] leading-[42px] md:text-[40px] font-bold text-black">4.9+</p>
+                <p class="text-black text-[14px] leading-[22px] md:leading-[24px]">Rating</p>
+              </div>
+            </div>
+        </section>
+        <section class="container py-[40px]">
+          <div class=" w-full bg-heroblack bg-center bg-cover rounded-[24px] ">
+            <div class=" grid md:grid-cols-2 grid-cols-">
+              <div class="md:pl-[60px] md:pt-[40px] px-[24px] pt-[24px]">
+                <p
+                  class="md:text-[48px] md:leading-[64px] font-semibold text-[24px] leading-[32px] text-transparent bg-clip-text bg-gradient-to-r from-[#9ABFFE] to-[#A9F9B1]">
+                  Get the Minance mobile
+                  app</p>
+                <p class="md:text-[14px] md:leading-[24px] text-white pt-[24px]">The First Application that is widely use
+                  and
+                  trusted by many companies</p>
+                <p class="text-[14px] leading-[24px] text-white pt-[24px] pb-[24px]">Download App</p>
+              </div>
+              <div>
+                <img src="src/assets/content.png" alt="">
+              </div>
+            </div>
+          </div>
+        </section>
+        <footer class="w-full bg-herofooter container pt-[60px]">
+          <div class=" bg-herofooter bg-center bg-cover">
+            <div class="grid md:grid-cols-2 grid-cols-1 ">
+              <div class=" lg:w-[426px]">
+                <img src="src/assets/Logo.png" alt="">
+                <p class="text-[14px] leading-[24px] text-white pt-[40px]">At Minance, we help you achieve your financial
+                  goals with confidence. With 2 years of experience, we offer personalized financial planning and innovative
+                  banking services. Join us for a journey to financial stability and growth.</p>
+                <div>
+                  <ul class="pt-[40px] flex gap-[16px]">
+                    <li><a href=""></a> <img src="src/assets/instagram.svg" alt=""></li>
+                    <li><a href=""></a> <img src="src/assets/wa.svg" alt=""></li>
+                    <li><a href=""></a> <img src="src/assets/youtube.svg" alt=""></li>
+                    <li><a href=""></a> <img src="src/assets/linkedin.svg" alt=""></li>
+                    <li><a href=""></a> <img src="src/assets/twiter.svg" alt=""></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="grid md:grid-cols-2 grid-cols-1">
+                <div class="gap-">
+                  <p class="text-[14px] leading-[24px] text-white font-bold md:pt-0 pt-[24px]">Company</p>
+                  <ul>
+                    <li class="md:pt-[24px] pt-[16px]"><a href="">About Us</a></li>
+                    <li class="md:pt-[24px] pt-[16px]"><a href="">Blog</a></li>
+                    <li class="md:pt-[24px] pt-[16px]"><a href="">Contact</a></li>
+                  </ul>
+                </div>
+                <div class="">
+                  <p class="text-white font-bold md:pt-0 pt-[16px]">Contact us</p>
+                  <p class="text-white md:pt-[24px] pt-[24px]">+22 80 1234 4321</p>
+                  <div>
+                    <p class="text-white font-bold md:pt-[24px] pt-[16px]">Support</p>
+                    <p class="text-white md:pt-[24px] pt-[24px]">+22 80 1234 2233</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <img class="pt-[60px]" src="src/assets/Logofooter.png" alt="">
+            </div>
+          </div>
+        </footer>
+    </main>
+
+    <script type="module" src="/main.js"></script>
+</body>
+
+</html>

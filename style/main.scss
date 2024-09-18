@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer utilities{
+    
+}
+/* Untuk browser berbasis WebKit (Chrome, Safari) */
+::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Secara umum untuk semua browser */
+  html {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  }
+  

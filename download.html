@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mangcoding Template</title>
+</head>
+
+<body>
+    <header class="w-full bg-hero py-4 md:py-6 fixed">
+        <nav class="container flex flex-col md:flex-row justify-between items-center md:flex-wrap z-50">
+            <div class="flex justify-between w-full md:w-auto items-center">
+                <a href="index.html"><img class="w-auto h-12 md:h-auto" src="../src/assets/Logo.png" alt="Logo"></a>
+                <button class="md:hidden text-white" id="menu-btn">
+                    <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Desktop Menu -->
+            <ul
+                class="hidden md:flex flex-col md:flex-row lg:items-center gap-4 md:gap-6 w-full md:w-auto text-center mt-4 md:mt-0">
+                <li><a class="text-white text-lg" href="about.html">About</a></li>
+                <li><a class="text-white text-lg" href="download.html">Download</a></li>
+                <li><a class="text-white text-lg" href="contact.html">Contact</a></li>
+                <div class="border-[1.5px] border-white h-[32px] w-0"></div>
+                <div class="flex justify-center items-center gap-4 md:gap-6">
+                    <div x-data="{ open: false, selectLanguage: 'EN' }"
+                        class="relative border border-white px-4 py-2 rounded-full flex items-center gap-2">
+                        <button @click="open = !open" class="flex items-center">
+                            <span class="text-white text-sm font-semibold" x-text="selectLanguage"></span>
+                            <img src="./src/assets/arrow.svg" class="ml-2 transform duration-500"
+                                :class="{'rotate-180': open, 'rotate-0': !open}" alt="arrow">
+                        </button>
+                        <img class="ml-2 w-5 h-5 rounded-full"
+                            :src="selectLanguage === 'EN' ? './src/assets/eng-flags.svg' : './src/assets/idn-flags.svg'"
+                            alt="flag">
+                        <div x-show="open" @click.away="open = false"
+                            class="absolute mt-2 top-8 left-0 bg-white text-black rounded-lg shadow-lg overflow-hidden z-20">
+                            <ul class="py-2 text-center">
+                                <li @click="selectLanguage = 'EN'; open = false"
+                                    class="px-4 py-2 cursor-pointer hover:bg-gray-200">EN</li>
+                                <li @click="selectLanguage = 'IND'; open = false"
+                                    class="px-4 py-2 cursor-pointer hover:bg-gray-200">IND</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="btn btn__primary px-4 py-2 text-white bg-blue-600 rounded-full">Sign Up</button>
+                </div>
+            </ul>
+        </nav>
+
+        <!-- Mobile Menu (Full-Screen Sidebar) -->
+        <div id="menu" class="fixed inset-0 bg-white px-[24px] md:hidden flex flex-col z-50 ">
+            <div class="flex justify-between w-full mt-[12px]">
+                <img src="src/assets/Logohitam.png" alt="Logo" class="w-24 h-auto">
+                <svg id="close-btn" class="w-8 h-8 cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </div>
+
+            <ul class="flex flex-col text-left gap-8 w-full mt-16">
+                <li><a class="text-black text-lg" href="about.html">About</a></li>
+                <li><a class="text-black text-lg" href="download.html">Download</a></li>
+                <li><a class="text-black text-lg" href="contact.html">Contact</a></li>
+                <div class="justify-between items-center gap-4">
+                    <div x-data="{ open: false, selectLanguage: 'EN' }"
+                        class="relative border border-black px-4 py-2 rounded-full flex items-center gap-2">
+                        <button @click="open = !open" class="flex items-center">
+                            <span class="text-black text-sm font-semibold" x-text="selectLanguage"></span>
+                            <img src="src/assets/arrowhitam.svg" class="ml-2 transform duration-500"
+                                :class="{'rotate-180': open, 'rotate-0': !open}" alt="arrow">
+                        </button>
+                        <img class="ml-auto w-5 h-5 rounded-full"
+                            :src="selectLanguage === 'EN' ? './src/assets/eng-flags.svg' : './src/assets/idn-flags.svg'"
+                            alt="flag">
+                        <div x-show="open" @click.away="open = false"
+                            class="absolute mt-2 top-8 left-0 bg-white text-black rounded-lg shadow-lg overflow-hidden z-20">
+                            <ul class="py-2 text-center">
+                                <li @click="selectLanguage = 'EN'; open = false"
+                                    class="px-4 py-2 cursor-pointer hover:bg-gray-200">EN</li>
+                                <li @click="selectLanguage = 'IND'; open = false"
+                                    class="px-4 py-2 cursor-pointer hover:bg-gray-200">IND</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="btn btn__primary w-full mt-[24px] px-4 py-2 text-white bg-blue-600 rounded-full">Sign
+                        Up</button>
+                </div>
+            </ul>
+        </div>
+
+        <!-- Script JavaScript untuk membuka dan menutup menu -->
+        <script>
+            document.getElementById('menu-btn').addEventListener('click', function () {
+                document.getElementById('menu').classList.toggle('hidden');
+            });
+
+            document.getElementById('close-btn').addEventListener('click', function () {
+                document.getElementById('menu').classList.toggle('hidden');
+            });
+        </script>
+    </header>
+    <main>
+        <section class="w-full bg-herodownload mx-auto flex flex-col items-center text-white pt-28">
+            <div class="container pt-[35px]">
+                <div class="px-[221px] pb-[138px] text-center">
+                    <div>
+                        <h1 class="text-[64px] leading-[88px] font-semibold font-inter text-center">Download Minance App and Achieve Your Goals!</h1>
+                    </div>
+                    <div class="pt-[24px]">
+                        <p class="text-[16px] leading-[26px] font-inter text-white">Enjoy the convenience of managing your finances with Minance. Download the app now and start achieving your financial goals more easily and efficiently.</p>
+                    </div>
+                    <div class="pt-[24px]">
+                        <button class="btn btn__primary w-[172px] px-[24px] py-[12px] text-white bg-blue-600 rounded-full">Download</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container py-[60px]">
+            <div class="grid md:grid-cols-2 grid-cols-1 gap-8">
+                <div class="bg-blue-100 rounded-xl pt-6 flex flex-col items-center justify-center">
+                    <!-- Teks di tengah -->
+                    <div class="text-center mb-6">
+                        <p class="text-[24px] leading-[32px] font-inter font-semibold mb-4">Get App for iOS</p>
+                        <p class="text-[16px] leading-[26px] font-inter">Download Minance on the App Store and enjoy the convenience of managing your finances on your iOS device</p>
+                    </div>
+                    <!-- Tombol App Store di tengah -->
+                    <div class="flex justify-center">
+                        <img class="w-auto h-12" src="src/assets/ButtonAppstore.svg" alt="App Store Button">
+                    </div>
+                    <div class="pt-[60px]">
+                        <img src="src/assets/iPhone-download.png" alt="">
+                    </div>
+                </div>
+                <div class="bg-blue-100 rounded-xl pt-6 flex flex-col items-center justify-center">
+                    <!-- Teks di tengah -->
+                    <div class="text-center mb-6">
+                        <p class="text-[24px] leading-[32px] font-inter font-semibold mb-4">Get App for Android</p>
+                        <p class="text-[16px] leading-[26px] font-inter">Download Minance on Google Play and start managing your finances better on your Android device</p>
+                    </div>
+                    <!-- Tombol App Store di tengah -->
+                    <div class="flex justify-center">
+                        <img class="w-auto h-12" src="src/assets/Button Playstore.svg" alt="App Store Button">
+                    </div>
+                    <div class="pt-[60px]">
+                        <img src="src/assets/android-download.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container mx-auto px-4 md:px-0">
+            <div class="grid md:grid-cols-2 grid-cols-1">
+              <div class="md:pr-[132px] md:pl-[60px] text-center md:text-left">
+                <p class="text-[28px] md:text-[48px] leading-[34px] md:leading-[60px] font-semibold">View some reviews from
+                  Minance Users</p>
+                <p class="text-[14px] leading-[24px] mt-[24px]">
+                  What many people say about this app and how do you feel when using this app for your Money Management
+                </p>
+              </div>
+              <div class="overflow-y-scroll h-[300px] md:h-[502px]" x-data="{
+                  reviewers: [
+                    {
+                      name: 'nugraha',
+                      text: 'Minance App has changed the way we manage company finances. The intuitive interface and complete features make the financial management process more efficient and accurate. I highly recommend Minance App for companies looking to optimize their financial management.',
+                      img: 'src/assets/nugraha.svg',
+                      position: 'manager',
+                      play: 'src/assets/PlayButton.svg',
+                    },
+                    {
+                      name: 'nugroho',
+                      text: 'Minance App has changed the way we manage company finances. The intuitive interface and complete features make the financial management process more efficient and accurate. I highly recommend Minance App for companies looking to optimize their financial management.',
+                      img: 'src/assets/nugraha.svg',
+                      position: 'manager',
+                      play: 'src/assets/PlayButton.svg',
+                    },
+                    {
+                      name: 'nugraho',
+                      text: 'Minance App has changed the way we manage company finances. The intuitive interface and complete features make the financial management process more efficient and accurate. I highly recommend Minance App for companies looking to optimize their financial management.',
+                      img: 'src/assets/nugraha.svg',
+                      position: 'manager',
+                      play: 'src/assets/PlayButton.svg',
+                    },
+                    {
+                      name: 'nugrahe',
+                      text: 'Minance App has changed the way we manage company finances. The intuitive interface and complete features make the financial management process more efficient and accurate. I highly recommend Minance App for companies looking to optimize their financial management.',
+                      img: 'src/assets/nugraha.svg',
+                      position: 'manager',
+                      play: 'src/assets/PlayButton.svg',
+                    }
+                  ]
+               }">
+                <template x-for="(review, index) in reviewers" :key="index">
+                  <div class="mb-[35px] border rounded-[16px]">
+                    <!-- Text review -->
+                    <p class="text-[14px] md:text-[16px] leading-[22px] md:leading-[26px] pt-[24px] px-[16px]"
+                      x-text="review.text"></p>
+      
+                    <!-- Figure section -->
+                    <figure class="flex items-center px-[16px] pt-[35px]">
+                      <img class="pr-[6px] w-[40px] h-[40px] md:w-[50px] md:h-[50px]" :src="review.img" alt="person">
+                      <div class="pl-[6px]">
+                        <p class="text-[14px] md:text-[16px] leading-[20px] md:leading-[26px] font-bold" x-text="review.name">
+                        </p>
+                        <p class="text-[12px] md:text-[14px] leading-[16px] md:leading-[20px] pt-[6px]"
+                          x-text="review.position"></p>
+                      </div>
+                      <img class="ml-auto w-[20px] md:w-[24px] h-[20px] md:h-[24px]" :src="review.play" alt="play">
+                    </figure>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </section>
+          <section class="container pt-[100px] py-[40px]">
+            <div class=" w-full bg-heroblack bg-center bg-cover rounded-[24px] ">
+              <div class=" grid md:grid-cols-2 grid-cols-">
+                <div class="md:pl-[60px] md:pt-[40px] px-[24px] pt-[24px]">
+                  <p
+                    class="md:text-[48px] md:leading-[64px] font-semibold text-[24px] leading-[32px] text-transparent bg-clip-text bg-gradient-to-r from-[#9ABFFE] to-[#A9F9B1]">
+                    Get the Minance mobile
+                    app</p>
+                  <p class="md:text-[14px] md:leading-[24px] text-white pt-[24px]">The First Application that is widely use
+                    and
+                    trusted by many companies</p>
+                  <p class="text-[14px] leading-[24px] text-white pt-[24px] pb-[24px]">Download App</p>
+                </div>
+                <div>
+                  <img src="src/assets/content.png" alt="">
+                </div>
+              </div>
+            </div>
+          </section>
+          <footer class="w-full bg-herofooter container pt-[60px]">
+            <div class=" bg-herofooter bg-center bg-cover">
+              <div class="grid md:grid-cols-2 grid-cols-1 ">
+                <div class=" lg:w-[426px]">
+                  <img src="src/assets/Logo.png" alt="">
+                  <p class="text-[14px] leading-[24px] text-white pt-[40px]">At Minance, we help you achieve your financial
+                    goals with confidence. With 2 years of experience, we offer personalized financial planning and innovative
+                    banking services. Join us for a journey to financial stability and growth.</p>
+                  <div>
+                    <ul class="pt-[40px] flex gap-[16px]">
+                      <li><a href=""></a> <img src="src/assets/instagram.svg" alt=""></li>
+                      <li><a href=""></a> <img src="src/assets/wa.svg" alt=""></li>
+                      <li><a href=""></a> <img src="src/assets/youtube.svg" alt=""></li>
+                      <li><a href=""></a> <img src="src/assets/linkedin.svg" alt=""></li>
+                      <li><a href=""></a> <img src="src/assets/twiter.svg" alt=""></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="grid md:grid-cols-2 grid-cols-1">
+                  <div class="gap-">
+                    <p class="text-[14px] leading-[24px] text-white font-bold md:pt-0 pt-[24px]">Company</p>
+                    <ul>
+                      <li class="md:pt-[24px] pt-[16px]"><a href="">About Us</a></li>
+                      <li class="md:pt-[24px] pt-[16px]"><a href="">Blog</a></li>
+                      <li class="md:pt-[24px] pt-[16px]"><a href="">Contact</a></li>
+                    </ul>
+                  </div>
+                  <div class="">
+                    <p class="text-white font-bold md:pt-0 pt-[16px]">Contact us</p>
+                    <p class="text-white md:pt-[24px] pt-[24px]">+22 80 1234 4321</p>
+                    <div>
+                      <p class="text-white font-bold md:pt-[24px] pt-[16px]">Support</p>
+                      <p class="text-white md:pt-[24px] pt-[24px]">+22 80 1234 2233</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <img class="pt-[60px]" src="src/assets/Logofooter.png" alt="">
+              </div>
+            </div>
+          </footer>
+    </main>
+    <script type="module" src="/main.js"></script>
+</body>
+</html>
