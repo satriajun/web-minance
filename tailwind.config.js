@@ -27,14 +27,14 @@ export default {
     },
     extend: {
       backgroundImage: {
-        'hero': "url('../src/assets/backgorund.png')",
-        'heroflags': "url('../src/assets/bgplags.png')",
-        'herofast': "url('../src/assets/bgfast.png')",
-        'heroblack': "url('../src/assets/bgblack.png')",
-        'herofooter': "url('../src/assets/bgfooter.png')",
-        'herodownload': "url('../src/assets/bgdownload.png')",
-        'heroios': "url('../src/assets/cardiOs.png')",
-        'heroandroid': "url('../src/assets/CardAndroid.png')",
+        'hero': "url('public/backgorund.png')",
+        'heroflags': "url('public/bgplags.png')",
+        'herofast': "url('public/bgfast.png')",
+        'heroblack': "url('public/bgblack.png')",
+        'herofooter': "url('public/bgfooter.png')",
+        'herodownload': "url('public/bgdownload.png')",
+        'heroios': "url('public/cardiOs.png')",
+        'heroandroid': "url('public/CardAndroid.png')",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
